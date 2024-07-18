@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/order
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+      generate-ddl: true
+      database: mysql
+      show-sql: true
+    properties:
+      hibernate:
+      format_sql: true
+
+server:
+  port: 9993
+
+application:
+  config:
+    customer-url: http://localhost:9999/customer
+    product-url: http://localhost:9999/product
+    payment-url: http://localhost:9999/payment
