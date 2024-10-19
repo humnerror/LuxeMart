@@ -3,6 +3,7 @@ package com.luxemart.payment;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(
         name = "payment-service",
@@ -11,6 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface PaymentClient {
 
     @PostMapping("/initiatePayment")
-    Long makePayment(PaymentRequest request);
+    Long makePayment(@RequestBody PaymentRequest request);
 
 }

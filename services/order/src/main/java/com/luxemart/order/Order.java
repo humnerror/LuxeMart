@@ -1,5 +1,6 @@
 package com.luxemart.order;
 
+import com.luxemart.customer.CustomerResponse;
 import com.luxemart.orderLine.OrderLine;
 import com.luxemart.payment.PaymentMethod;
 import jakarta.persistence.*;
@@ -33,7 +34,7 @@ public class Order {
 
     private BigDecimal totalAmount;
 
-    private Long customer;
+    private String customer;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod method;
@@ -46,7 +47,7 @@ public class Order {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(insertable = false,nullable = false)
+    @Column(nullable = false)
     private LocalDateTime modifiedAt;
 
 

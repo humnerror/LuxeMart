@@ -6,19 +6,23 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
-      generate-ddl: true
-      database: mysql
-      show-sql: true
+      ddl-auto: update
+    generate-ddl: true
+    database: mysql
+    show-sql: true
     properties:
       hibernate:
-      format_sql: true
+        format_sql: true
+  kafka:
+    producer:
+      properties:
+        spring.json.type.mapping: orderConfirmation:com.luxemart.order.OrderConfirmation
 
 server:
   port: 9993
 
 application:
   config:
-    customer-url: http://localhost:9999/customer
-    product-url: http://localhost:9999/product
-    payment-url: http://localhost:9999/payment
+    customer-url: http://localhost:9991/customer
+    product-url: http://localhost:9992/product
+    payment-url: http://localhost:9994/payment

@@ -11,7 +11,7 @@ public record OrderResponse(
 
         BigDecimal price,
 
-        Long customerId,
+        String customerId,
 
         PaymentMethod method
 ) {

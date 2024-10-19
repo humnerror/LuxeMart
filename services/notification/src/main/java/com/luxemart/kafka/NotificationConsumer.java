@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 
 @Service
@@ -29,8 +30,8 @@ public class NotificationConsumer {
     private final EmailService emailService;
 
 
-    @KafkaListener(topics = "payment-topic")
-    public void consumePaymentSuccessMessage(PaymentConfirmation paymentConfirmation) throws MessagingException {
+    @KafkaListener(topics = "payment-topic",groupId = "paymentGroup")
+    public void consumePaymentSuccessMessage(PaymentConfirmation paymentConfirmation) throws MessagingException, UnsupportedEncodingException {
 
         logger.info(String.format("Payment Successfully done :: %s",paymentConfirmation));
 
@@ -52,10 +53,10 @@ public class NotificationConsumer {
     }
 
 
-    @KafkaListener(topics = "payment-topic")
-    public void consumeOrderConfirmationMessage(OrderConfirmation orderConfirmation) throws MessagingException {
+    @KafkaListener(topics = "order-topic",groupId = "orderGroup")
+    public void consumeOrderConfirmationMessage(OrderConfirmation orderConfirmation) throws MessagingException, UnsupportedEncodingException {
 
-        logger.info(String.format("Payment Successfully done :: %s",orderConfirmation));
+        logger.info(String.format("Order Successfully done :: %s",orderConfirmation));
 
         repository.save(
                 Notification.builder()
@@ -66,10 +67,10 @@ public class NotificationConsumer {
         );
 
         emailService.sendOrderConfirmationMail(
-                orderConfirmation.customerResponse().email(),
-                orderConfirmation.customerResponse().firstName()+" "+orderConfirmation.customerResponse().lastName(),
+                orderConfirmation.customer().email(),
+                orderConfirmation.customer().firstName()+" "+orderConfirmation.customer().lastName(),
                 orderConfirmation.totalAmount(),
-                orderConfirmation.reference(),
+                orderConfirmation.OrderReference(),
                 orderConfirmation.productResponses()
         );
 

@@ -9,13 +9,13 @@ import org.springframework.validation.annotation.Validated;
 public record Customer(
 
         @NotNull(message = "Customer Id is required")
-        Long id,
+        String id,
 
         @NotNull(message = "Customer Firstname is required")
-        String firstname,
+        String firstName,
 
         @NotNull(message = "Customer Lastname is required")
-        String lastname,
+        String lastName,
 
         @NotNull(message = "Customer Email is required")
         @Email(message = "Invalid Email")

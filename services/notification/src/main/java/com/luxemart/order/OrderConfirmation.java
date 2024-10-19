@@ -9,13 +9,13 @@ import java.util.List;
 
 public record OrderConfirmation(
 
-        String reference,
+        String OrderReference,
 
         BigDecimal totalAmount,
 
-        PaymentMethod method,
+        PaymentMethod paymentMethod,
 
-        CustomerResponse customerResponse,
+        CustomerResponse customer,
 
         List<ProductResponse> productResponses
 

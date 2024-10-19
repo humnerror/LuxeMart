@@ -18,11 +18,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class NotificationProducer {
 
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+    private final KafkaTemplate<String, PaymentNotificationRequest> kafkaTemplate;
 
     private final Logger logger = LoggerFactory.getLogger(NotificationProducer.class);
 
     public void putMessageInNotification(PaymentNotificationRequest request){
+
+        log.info("Sending notification with body = < {} >", request);
 
         Message<PaymentNotificationRequest> message = MessageBuilder.withPayload(request)
                 .setHeader(KafkaHeaders.TOPIC, "payment-topic")

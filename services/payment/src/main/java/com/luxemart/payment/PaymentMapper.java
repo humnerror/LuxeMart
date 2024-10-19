@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PaymentMapper {
     public Payment toPayment(PaymentRequest request) {
+        if(request == null) return null;
         return Payment.builder()
                 .id(request.id())
                 .amount(request.amount())

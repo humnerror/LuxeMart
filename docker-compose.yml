@@ -1,77 +1,19 @@
 version: '3.8'
 
 services:
-  #  postgresql:
-  #    container_name: postgresql_container
-  #    image: postgres
-  #    environment:
-  #      POSTGRES_USER: alibou
-  #      POSTGRES_PASSWORD: alibou
-  #      PGDATA: /data/postgres
-  #    volumes:
-  #      - postgres:/data/postgres
-  #    ports:
-  #      - "5432:5432"
-  #    networks:
-  #      - microservices-net
-  #    restart: unless-stopped
-
   mail-dev:
     container_name: ms-mail-dev
     image: maildev/maildev
     ports:
       - "1080:1080"
       - "1025:1025"
-  zipkin:
-    container_name: zipkin
-    image: openzipkin/zipkin
-    ports:
-      - "9411:9411"
-    networks:
-      - microservices-net
 
-  #  pgadmin:
-  #    container_name: ms_pgadmin
-  #    image: dpage/pgadmin4
-  #    environment:
-  #      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-  #      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-  #      PGADMIN_CONFIG_SERVER_MODE: 'False'
-  #    volumes:
-  #      - pgadmin:/var/lib/pgadmin
-  #    ports:
-  #      - "5050:80"
-  #    networks:
-  #      - microservices-net
-  #    restart: unless-stopped
-
-  #  mongodb:
-  #    image: mongo
-  #    container_name: mongo_db
-  #    ports:
-  #      - "27017:27017"
-  #    volumes:
-  #      - mongo:/data
-  #    environment:
-  #      - MONGO_INITDB_ROOT_USERNAME=alibou
-  #      - MONGO_INITDB_ROOT_PASSWORD=alibou
-  #
-  #  mongo-express:
-  #    image: mongo-express
-  #    container_name: mongo_express
-  #    restart: unless-stopped
-  #    ports:
-  #      - "8081:8081"
-  #    environment:
-  #      - ME_CONFIG_MONGODB_ADMINUSERNAME=alibou
-  #      - ME_CONFIG_MONGODB_ADMINPASSWORD=alibou
-  #      - ME_CONFIG_MONGODB_SERVER=mongodb
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     hostname: zookeeper
     container_name: zookeeper
     ports:
-      - "22181:2181"
+      - "2181:2181"  # Exposing default Zookeeper port
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -91,28 +33,11 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
-      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
-      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker:29092
-      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
-      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
-      CONFLUENT_METRICS_ENABLE: "true"
-      CONFLUENT_SUPPORT_CUSTOMER_ID: "anonymous"
     networks:
       - microservices-net
-
-
-
-
-
 
 networks:
   microservices-net:
     driver: bridge
-
-#volumes:
-#  postgres:
-#  pgadmin:
-#  mongo:

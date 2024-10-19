@@ -1,33 +1,40 @@
 spring:
   kafka:
     consumer:
-      bootstrap-servers: http://localhost:9092
-      group-id: paymentGroup,orderGroup
+      bootstrap-servers: localhost:9092
+      group-id: orderGroup,paymentGroup
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
-    data:
-      mongodb:
-        host: localhost
-        port: 27017
-        database: notification
+        spring.json.type.mapping: orderConfirmation:com.luxemart.order.OrderConfirmation,paymentConfirmation:com.luxemart.payment.PaymentConfirmation
 
-    mail:
+  data:
+    mongodb:
       host: localhost
-      port: 1025
-      username: alibou
-      password: alibou
-      properties:
-        mail:
-          smtp:
-            trust: "*"
-          auth: true
-          starttls:
-            enabled: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
+      port: 27017
+      database: notification
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jadduravi0@gmail.com
+    password: gxgfzsvlgyjraihg
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 3000
+      mail.smtp.writetimeout: 5000
+
+
 server:
   port: 9995
+
+logging:
+  level:
+    org:
+      springframework:
+        mail: DEBUG

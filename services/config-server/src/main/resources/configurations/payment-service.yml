@@ -4,15 +4,24 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database: mysql
+    show-sql: true
+    properties:
       hibernate:
-        ddl-auto: create
-      generate-ddl: true
-      database: mysql
-      show-sql: true
+        format_sql: true
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      group-id: paymentGroup
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        hibernate:
-          format_sql: true
-
+        spring.json.trusted.packages: "*"
+        spring.json.type.mapping: paymentConfirmation:com.luxemart.payment.PaymentNotificationRequest
 server:
   port: 9994

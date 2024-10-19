@@ -18,7 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Category {
+public class
+Category {
 
     @Id
     @GeneratedValue

@@ -1,6 +1,7 @@
 package com.luxemart.configuration;
 
 
+import com.luxemart.order.OrderConfirmation;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -27,11 +28,11 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public KafkaTemplate<String, Object> getTemplate(){
+    public KafkaTemplate<String, OrderConfirmation> getTemplate(){
         return new KafkaTemplate<>(getProducerFactory());
     }
 
-    public ProducerFactory<String, Object> getProducerFactory(){
+    public ProducerFactory<String, OrderConfirmation> getProducerFactory(){
         Map<String, Object> producerMap = new HashMap<>();
         producerMap.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"http://localhost:9092");
         producerMap.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);

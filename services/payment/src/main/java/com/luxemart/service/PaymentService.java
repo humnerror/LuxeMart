@@ -29,8 +29,8 @@ public class PaymentService {
 
                 new PaymentNotificationRequest(
                         request.customer().email(),
-                        request.customer().firstname(),
-                        request.customer().lastname(),
+                        request.customer().firstName(),
+                        request.customer().lastName(),
                         request.reference(),
                         request.paymentMethod(),
                         request.amount()

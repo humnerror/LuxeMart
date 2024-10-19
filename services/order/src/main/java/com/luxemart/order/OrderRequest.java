@@ -22,7 +22,7 @@ public record OrderRequest(
         @NotNull(message = "customer ID should be present")
         @NotBlank(message = "customer ID should be present")
         @NotEmpty(message = "customer ID should be present")
-        Long customerId,
+        String customerId,
 
         @NotNull(message = "Select the appropriate payment method")
         PaymentMethod method,
